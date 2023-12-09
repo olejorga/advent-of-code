@@ -38,4 +38,17 @@ namespace lib {
 
     return matches;
   }
+
+  std::vector<std::string> split(std::string input, char delimiter) 
+  {
+    std::vector<std::string> result;
+    std::istringstream stream(input);
+    std::string token;
+
+    while (std::getline(stream, token, delimiter)) {
+      result.push_back(token);
+    }
+
+    return result;
+  }
 }
