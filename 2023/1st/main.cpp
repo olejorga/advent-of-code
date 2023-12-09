@@ -3,18 +3,9 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <map>
 
 #include "../lib/lib.hpp"
-
-std::vector<char> extractDigits(const std::string &input) {
-  std::vector<char> digits;
-
-  for (const auto ch : input) {
-    if (isdigit(ch)) digits.push_back(ch);
-  }
-
-  return digits;
-}
 
 int main(int argc, char const *argv[])
 {
@@ -22,14 +13,25 @@ int main(int argc, char const *argv[])
 
   std::vector<std::string> rows = lib::read(argv[1]);
 
+  std::map<std::string, std::string> conversion = {
+    { "one", "1" }, { "two", "2" }, { "three", "3" },
+    { "four", "4" }, { "five", "5" }, { "six", "6" },
+    { "seven", "7" }, { "eight", "8" }, { "nine", "9" },
+  };
+
   for (const auto &row : rows)
   {
-    std::vector<char> digits = extractDigits(row);
+    std::vector<std::string> digits = lib::find(std::regex("(\\d|one|two|three|four|five|six|seven|eight|nine)"), row);
 
-    char first = digits.front();
-    char last = digits.back();
+    std::string first = digits.front();
+    std::string last = digits.back();
 
-    std::string number = std::string(1, first) + std::string(1, last);
+    first = isdigit(first[0]) ? first : conversion[first];
+    last = isdigit(last[0]) ? last : conversion[last];
+
+    std::string number = first + last;
+
+    std::cout << number << " --- " << row <<  std::endl;
 
     answer += std::stoi(number);
   }
