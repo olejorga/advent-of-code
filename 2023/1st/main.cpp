@@ -4,23 +4,7 @@
 #include <iostream>
 #include <sstream>
 
-std::vector<std::string> readLines(const std::string &filepath)
-{
-  std::vector<std::string> lines;
-  std::ifstream file(filepath);
-
-  if (file.is_open()) {
-    std::string line;
-
-    while (std::getline(file, line)) {
-      lines.push_back(line);
-    }
-
-    file.close();
-  }
-
-  return lines;
-}
+#include "../lib/lib.hpp"
 
 std::vector<char> extractDigits(const std::string &input) {
   std::vector<char> digits;
@@ -36,7 +20,7 @@ int main(int argc, char const *argv[])
 {
   int answer = 0;
 
-  std::vector<std::string> rows = readLines(argv[1]);
+  std::vector<std::string> rows = lib::read(argv[1]);
 
   for (const auto &row : rows)
   {
@@ -51,6 +35,6 @@ int main(int argc, char const *argv[])
   }
 
   std::cout << answer << std::endl;
-
+  
   return 0;
 }
