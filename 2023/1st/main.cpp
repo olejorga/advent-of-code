@@ -13,25 +13,27 @@ int main(int argc, char const *argv[])
 
   std::vector<std::string> rows = lib::read(argv[1]);
 
-  std::map<std::string, std::string> conversion = {
-    { "one", "1" }, { "two", "2" }, { "three", "3" },
-    { "four", "4" }, { "five", "5" }, { "six", "6" },
-    { "seven", "7" }, { "eight", "8" }, { "nine", "9" },
-  };
+  // std::map<std::string, std::string> conversion = {
+  //   { "one", "1" }, { "two", "2" }, { "three", "3" },
+  //   { "four", "4" }, { "five", "5" }, { "six", "6" },
+  //   { "seven", "7" }, { "eight", "8" }, { "nine", "9" },
+  // };
 
   for (const auto &row : rows)
   {
-    std::vector<std::string> digits = lib::find(std::regex("(\\d|one|two|three|four|five|six|seven|eight|nine)"), row);
+    // std::vector<std::string> digits = lib::find(std::regex("(\\d|one|two|three|four|five|six|seven|eight|nine)"), row);
+
+    std::vector<std::string> digits = lib::find(std::regex("\\d"), row);
 
     std::string first = digits.front();
     std::string last = digits.back();
 
-    first = isdigit(first[0]) ? first : conversion[first];
-    last = isdigit(last[0]) ? last : conversion[last];
+    // first = isdigit(first[0]) ? first : conversion[first];
+    // last = isdigit(last[0]) ? last : conversion[last];
 
     std::string number = first + last;
 
-    std::cout << number << " --- " << row <<  std::endl;
+    // std::cout << number << " --- " << row <<  std::endl;
 
     answer += std::stoi(number);
   }
